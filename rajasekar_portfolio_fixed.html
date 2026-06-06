@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Rajasekar Desingu | Fullstack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--ink:#0a0e1a;--ink2:#111827;--ink3:#1e2d45;
+--electric:#00c8ff;--violet:#8b5cf6;--emerald:#10d98a;--amber:#f59e0b;
+--paper:#f0f4ff;--paper2:#e8eeff;
+--text:#1a2332;--text2:#4a5568;--text3:#718096;
+--card:#fff;--border:rgba(0,0,0,0.07);
+}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--text);font-family:'Outfit',sans-serif;overflow-x:hidden;cursor:auto}
+#cur{position:fixed;width:10px;height:10px;background:var(--electric);border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.08s;mix-blend-mode:multiply}
+#cur-trail{position:fixed;width:30px;height:30px;border:1.5px solid var(--violet);border-radius:50%;pointer-events:none;z-index:9998;transition:left 0.18s,top 0.18s}
+a,button{cursor:auto}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-thumb{background:var(--violet)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:0.9rem 3rem;background:rgba(240,244,255,0.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:var(--ink);letter-spacing:-0.02em}
+.logo span{color:var(--electric)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:0.83rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;transition:color 0.2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1.5px;background:var(--electric);transition:width 0.3s}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{width:100%}
+.hire-btn{background:var(--ink);color:#fff;border:none;padding:0.55rem 1.4rem;border-radius:100px;font-family:'Outfit',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:0.04em;text-transform:uppercase;transition:all 0.25s;box-shadow:0 4px 16px rgba(10,14,26,0.18)}
+.hire-btn:hover{background:var(--electric);color:var(--ink);transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,200,255,0.3)}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:6rem 3rem 3rem}
+.hero-bg-shape{position:absolute;right:-10%;top:-10%;width:55%;height:110%;background:linear-gradient(135deg,rgba(139,92,246,0.06),rgba(0,200,255,0.08));border-radius:50% 0 0 50%;z-index:0}
+.hero-bg-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(0,200,255,0.13) 1px,transparent 1px);background-size:32px 32px;z-index:0;opacity:0.6}
+.hero-inner{position:relative;z-index:2;max-width:1100px;width:100%;margin:0 auto;display:grid;grid-template-columns:1fr 340px;gap:5rem;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:#fff;border:1px solid rgba(0,200,255,0.3);padding:0.4rem 1rem;border-radius:100px;font-size:0.75rem;font-weight:600;color:var(--text2);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:1.4rem;box-shadow:0 2px 12px rgba(0,200,255,0.08)}
+.hero-badge-dot{width:7px;height:7px;background:var(--emerald);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(16,217,138,0.5)}50%{box-shadow:0 0 0 6px transparent}}
+h1.hero-name{font-family:'Playfair Display',serif;font-size:clamp(3rem,6vw,5.2rem);font-weight:800;line-height:1.0;letter-spacing:-0.03em;color:var(--ink);margin-bottom:0.3rem}
+h1.hero-name .accent{color:var(--electric)}
+.hero-title{font-size:1rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3);margin-bottom:1.4rem;font-family:'Fira Code',monospace}
+.hero-title span{color:var(--violet)}
+.hero-bio{color:var(--text2);font-size:0.95rem;max-width:520px;line-height:1.85;margin-bottom:2rem}
+.hero-contact-row{display:flex;flex-wrap:wrap;gap:0.8rem;margin-bottom:2rem}
+.contact-pill{display:flex;align-items:center;gap:0.45rem;background:#fff;border:1px solid var(--border);padding:0.38rem 0.9rem;border-radius:100px;font-size:0.8rem;color:var(--text2);box-shadow:0 2px 8px rgba(0,0,0,0.04);text-decoration:none;transition:all 0.2s}
+.contact-pill:hover{border-color:var(--electric);color:var(--ink);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,200,255,0.15)}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap}
+.cta-primary{display:inline-flex;align-items:center;gap:0.5rem;background:var(--ink);color:#fff;text-decoration:none;padding:0.8rem 1.8rem;border-radius:100px;font-weight:700;font-size:0.88rem;transition:all 0.25s;box-shadow:0 4px 20px rgba(10,14,26,0.2)}
+.cta-primary:hover{background:var(--electric);color:var(--ink);transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,200,255,0.28)}
+.cta-secondary{display:inline-flex;align-items:center;gap:0.5rem;background:transparent;color:var(--ink);text-decoration:none;padding:0.8rem 1.8rem;border-radius:100px;font-weight:700;font-size:0.88rem;border:2px solid var(--ink);transition:all 0.25s}
+.cta-secondary:hover{background:var(--ink);color:#fff;transform:translateY(-2px)}
+.hero-card{background:#fff;border-radius:28px;padding:2rem;box-shadow:0 20px 60px rgba(0,0,0,0.09),0 4px 20px rgba(0,0,0,0.04);position:relative;overflow:hidden}
+.hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--electric),var(--violet),var(--emerald))}
+.hero-avatar{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,var(--electric),var(--violet));display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:800;color:#fff;position:relative}
+.avatar-ring{position:absolute;inset:-4px;border-radius:50%;border:2px dashed rgba(0,200,255,0.4);animation:spin 12s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-card-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;text-align:center;color:var(--ink);margin-bottom:0.15rem}
+.hero-card-role{font-size:0.72rem;text-align:center;color:var(--electric);font-family:'Fira Code',monospace;font-weight:600;letter-spacing:0.1em;margin-bottom:1.2rem}
+.hero-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem}
+.hsg-item{background:var(--paper);border-radius:12px;padding:0.65rem;text-align:center}
+.hsg-num{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:var(--ink)}
+.hsg-lbl{font-size:0.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-top:1px}
+
+/* SOCIAL BUTTONS IN HERO CARD */
+.hero-social{display:flex;gap:0.5rem;margin-top:1rem;justify-content:center}
+.hs-btn{display:flex;align-items:center;gap:0.4rem;padding:0.4rem 0.85rem;border-radius:8px;font-size:0.72rem;font-weight:700;text-decoration:none;font-family:'Fira Code',monospace;letter-spacing:0.04em;transition:all 0.22s;border:1.5px solid transparent}
+.hs-gh{background:var(--ink);color:#fff;border-color:var(--ink)}
+.hs-gh:hover{background:#24292e;transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.2)}
+.hs-li{background:#0077b5;color:#fff;border-color:#0077b5}
+.hs-li:hover{background:#005f94;transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,119,181,0.3)}
+.hs-mail{background:var(--violet);color:#fff;border-color:var(--violet)}
+.hs-mail:hover{background:#7c3aed;transform:translateY(-2px);box-shadow:0 4px 16px rgba(139,92,246,0.3)}
+
+/* SECTIONS */
+section{padding:5.5rem 3rem;position:relative;z-index:1}
+.container{max-width:1100px;margin:0 auto}
+.sec-label{font-family:'Fira Code',monospace;font-size:0.72rem;font-weight:500;color:var(--electric);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.6rem;display:flex;align-items:center;gap:0.5rem}
+.sec-label::before{content:'';width:20px;height:1.5px;background:var(--electric)}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1.1;color:var(--ink);margin-bottom:0.5rem}
+.sec-title em{font-style:normal;color:var(--electric)}
+.sec-divider{width:48px;height:3px;background:linear-gradient(90deg,var(--electric),var(--violet));border-radius:2px;margin-top:1rem;margin-bottom:3rem}
+.bg-alt{background:#fff}
+.bg-ink{background:var(--ink);color:#e2e8f0}
+.bg-ink .sec-title{color:#f0f4ff}
+.bg-ink .sec-divider{background:linear-gradient(90deg,var(--electric),var(--emerald))}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:3rem;align-items:start}
+.about-card{background:#fff;border-radius:20px;padding:2rem;box-shadow:0 8px 30px rgba(0,0,0,0.06);border:1px solid var(--border)}
+.about-card h4{font-size:0.72rem;color:var(--electric);font-family:'Fira Code',monospace;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.8rem}
+.about-card p{color:var(--text2);font-size:0.9rem;line-height:1.9}
+.info-row{display:flex;justify-content:space-between;align-items:center;padding:0.8rem 1.2rem;background:var(--paper);border-radius:10px;border:1px solid var(--border);margin-bottom:0.75rem}
+.ir-label{font-size:0.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;font-weight:600}
+.ir-val{font-size:0.88rem;color:var(--ink);font-weight:600}
+.ir-val a{color:var(--electric);text-decoration:none;transition:opacity 0.2s}
+.ir-val a:hover{opacity:0.75}
+.ref-card{background:linear-gradient(135deg,var(--ink),var(--ink3));color:#fff;border-radius:16px;padding:1.4rem;margin-top:0.75rem}
+.ref-name{font-size:1rem;font-weight:700;margin-bottom:0.2rem}
+.ref-role{font-size:0.78rem;color:rgba(255,255,255,0.55);margin-bottom:0.8rem}
+.ref-phone{font-family:'Fira Code',monospace;font-size:0.82rem;color:var(--electric)}
+
+/* SKILLS */
+.skills-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.skill-block{background:#fff;border-radius:20px;padding:1.8rem;box-shadow:0 6px 24px rgba(0,0,0,0.05);border:1px solid var(--border);transition:transform 0.25s,box-shadow 0.25s}
+.skill-block:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,0.1)}
+.skill-block-head{display:flex;align-items:center;gap:0.8rem;margin-bottom:1.4rem}
+.skill-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.si-blue{background:rgba(0,200,255,0.1)}.si-violet{background:rgba(139,92,246,0.1)}.si-green{background:rgba(16,217,138,0.1)}.si-amber{background:rgba(245,158,11,0.1)}
+.skill-block-title{font-size:0.88rem;font-weight:700;color:var(--ink)}
+.skill-block-sub{font-size:0.72rem;color:var(--text3)}
+.skill-entry{margin-bottom:1rem}
+.se-top{display:flex;justify-content:space-between;margin-bottom:0.35rem}
+.se-name{font-size:0.84rem;color:var(--text);font-weight:500}
+.se-pct{font-family:'Fira Code',monospace;font-size:0.72rem;color:var(--violet);font-weight:600}
+.se-track{height:5px;background:var(--paper2);border-radius:3px;overflow:hidden}
+.se-fill{height:100%;border-radius:3px;width:0;transition:width 1.4s cubic-bezier(.4,0,.2,1)}
+.fill-blue{background:linear-gradient(90deg,var(--electric),#6ee7f7)}
+.fill-violet{background:linear-gradient(90deg,var(--violet),#c4b5fd)}
+.fill-green{background:linear-gradient(90deg,var(--emerald),#6ee7b7)}
+.fill-amber{background:linear-gradient(90deg,var(--amber),#fcd34d)}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:0.45rem;margin-top:0.6rem}
+.tc{font-family:'Fira Code',monospace;font-size:0.7rem;padding:0.22rem 0.65rem;border-radius:6px;background:var(--paper);border:1px solid var(--border);color:var(--text2);font-weight:500}
+
+/* EXPERIENCE */
+.exp-timeline{position:relative;padding-left:2.5rem;max-width:720px}
+.exp-timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--electric),var(--violet),rgba(139,92,246,0))}
+.exp-item{position:relative;padding-bottom:2rem}
+.exp-dot{position:absolute;left:-2.9rem;top:5px;width:16px;height:16px;border-radius:50%;background:var(--electric);border:3px solid rgba(10,14,26,0.9);box-shadow:0 0 0 2px var(--electric),0 0 16px rgba(0,200,255,0.4)}
+.exp-period{font-family:'Fira Code',monospace;font-size:0.72rem;color:var(--electric);font-weight:600;margin-bottom:0.3rem}
+.exp-company{font-size:1rem;font-weight:800;color:#f0f4ff;margin-bottom:0.15rem}
+.exp-role{font-size:0.82rem;color:rgba(240,244,255,0.55);margin-bottom:0.8rem}
+.exp-desc{font-size:0.87rem;color:rgba(240,244,255,0.8);line-height:1.85}
+.exp-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.8rem}
+.exp-tag{font-family:'Fira Code',monospace;font-size:0.68rem;padding:0.2rem 0.65rem;border-radius:6px;background:rgba(0,200,255,0.12);border:1px solid rgba(0,200,255,0.2);color:var(--electric)}
+
+/* EDUCATION */
+.edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.edu-card{background:#fff;border-radius:20px;padding:1.8rem;box-shadow:0 6px 24px rgba(0,0,0,0.06);border:1px solid var(--border);position:relative;overflow:hidden;transition:transform 0.25s,box-shadow 0.25s}
+.edu-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,0.1)}
+.edu-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px}
+.edu-card.primary::after{background:linear-gradient(90deg,var(--electric),var(--violet))}
+.edu-card.secondary::after{background:linear-gradient(90deg,var(--amber),var(--emerald))}
+.edu-year{font-family:'Fira Code',monospace;font-size:0.72rem;color:var(--electric);font-weight:600;margin-bottom:0.5rem}
+.edu-degree{font-size:1rem;font-weight:800;color:var(--ink);line-height:1.3;margin-bottom:0.3rem}
+.edu-institute{font-size:0.82rem;font-weight:600;color:var(--violet);margin-bottom:0.6rem}
+.edu-desc{font-size:0.83rem;color:var(--text2);line-height:1.8}
+.edu-badge{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(0,200,255,0.07);border:1px solid rgba(0,200,255,0.15);padding:0.25rem 0.7rem;border-radius:20px;font-size:0.72rem;color:var(--electric);font-weight:600;margin-top:0.8rem}
+
+/* CERTS */
+.cert-card{background:var(--ink);border-radius:20px;padding:2rem;position:relative;overflow:hidden;transition:transform 0.25s,box-shadow 0.25s}
+.cert-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,0.25)}
+.cert-card::before{content:'';position:absolute;top:-40px;right:-40px;width:120px;height:120px;border-radius:50%;background:rgba(0,200,255,0.05)}
+.cert-icon{font-size:2rem;margin-bottom:0.8rem}
+.cert-name{font-size:1rem;font-weight:700;color:#f0f4ff;margin-bottom:0.3rem}
+.cert-org{font-family:'Fira Code',monospace;font-size:0.72rem;color:var(--electric);letter-spacing:0.1em;margin-bottom:0.5rem}
+.cert-desc{font-size:0.82rem;color:rgba(240,244,255,0.6);line-height:1.7}
+.cert-year-badge{position:absolute;top:1.2rem;right:1.2rem;background:rgba(0,200,255,0.12);border:1px solid rgba(0,200,255,0.2);padding:0.2rem 0.6rem;border-radius:20px;font-family:'Fira Code',monospace;font-size:0.7rem;color:var(--electric)}
+
+/* CONTACT */
+.contact-wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:3rem;align-items:start}
+.contact-left p{color:var(--text2);font-size:0.92rem;line-height:1.85;margin-bottom:2rem}
+.contact-links{display:flex;flex-direction:column;gap:0.8rem}
+.cl-item{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;background:#fff;border-radius:14px;border:1px solid var(--border);text-decoration:none;transition:all 0.22s;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
+.cl-item:hover{border-color:var(--electric);transform:translateX(5px);box-shadow:0 4px 20px rgba(0,200,255,0.12)}
+.cl-icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0}
+.cl-lbl{font-size:0.7rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;font-weight:600}
+.cl-val{font-size:0.9rem;color:var(--ink);font-weight:600}
+.contact-form-card{background:#fff;border-radius:24px;padding:2rem;box-shadow:0 12px 40px rgba(0,0,0,0.07);border:1px solid var(--border)}
+.cf-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:var(--ink);margin-bottom:1.4rem}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.cf-group{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1rem}
+.cf-lbl{font-size:0.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;font-weight:600}
+.cf-input{background:var(--paper);border:1.5px solid var(--border);border-radius:10px;padding:0.7rem 1rem;color:var(--text);font-family:'Outfit',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.2s;width:100%}
+.cf-input:focus{border-color:rgba(0,200,255,0.5);background:#fff}
+textarea.cf-input{resize:vertical;min-height:90px}
+.cf-submit{width:100%;background:var(--ink);color:#fff;border:none;padding:0.9rem;border-radius:100px;font-family:'Outfit',sans-serif;font-weight:700;font-size:0.9rem;letter-spacing:0.04em;transition:all 0.25s}
+.cf-submit:hover{background:var(--electric);color:var(--ink);transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,200,255,0.25)}
+
+/* FLOATING SOCIAL BAR */
+.float-social{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);z-index:150;display:flex;flex-direction:column;gap:0.7rem}
+.fs-btn{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.1rem;transition:all 0.22s;box-shadow:0 4px 16px rgba(0,0,0,0.12)}
+.fs-gh{background:#24292e;color:#fff}
+.fs-gh:hover{background:var(--electric);transform:scale(1.12);box-shadow:0 6px 20px rgba(0,200,255,0.3)}
+.fs-li{background:#0077b5;color:#fff}
+.fs-li:hover{background:#005f94;transform:scale(1.12);box-shadow:0 6px 20px rgba(0,119,181,0.3)}
+.fs-mail{background:var(--violet);color:#fff}
+.fs-mail:hover{background:#7c3aed;transform:scale(1.12);box-shadow:0 6px 20px rgba(139,92,246,0.3)}
+.fs-phone{background:var(--emerald);color:#fff}
+.fs-phone:hover{background:#059669;transform:scale(1.12);box-shadow:0 6px 20px rgba(16,217,138,0.3)}
+.fs-label{position:absolute;right:54px;top:50%;transform:translateY(-50%);background:var(--ink);color:#fff;padding:0.25rem 0.6rem;border-radius:6px;font-size:0.7rem;font-family:'Fira Code',monospace;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.2s}
+.fs-btn:hover .fs-label{opacity:1}
+.fs-wrap{position:relative}
+
+/* FOOTER */
+footer{background:var(--ink);padding:3.5rem 3rem 2rem;text-align:center;position:relative;z-index:1}
+.footer-logo{font-family:'Playfair Display',serif;font-size:2rem;font-weight:800;color:#fff;margin-bottom:0.4rem}
+.footer-logo span{color:var(--electric)}
+.footer-tagline{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-bottom:2rem;font-family:'Fira Code',monospace}
+.footer-social{display:flex;justify-content:center;gap:0.8rem;margin-bottom:2rem}
+.footer-soc-btn{display:flex;align-items:center;gap:0.5rem;padding:0.55rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;text-decoration:none;font-family:'Fira Code',monospace;transition:all 0.22s;border:1.5px solid}
+.fb-gh{background:rgba(36,41,46,0.5);color:#cdd9e5;border-color:rgba(255,255,255,0.12)}
+.fb-gh:hover{background:#24292e;border-color:#24292e;transform:translateY(-2px)}
+.fb-li{background:rgba(0,119,181,0.2);color:#7cc8f5;border-color:rgba(0,119,181,0.35)}
+.fb-li:hover{background:#0077b5;color:#fff;border-color:#0077b5;transform:translateY(-2px)}
+.fb-mail{background:rgba(139,92,246,0.2);color:#c4b5fd;border-color:rgba(139,92,246,0.3)}
+.fb-mail:hover{background:var(--violet);color:#fff;transform:translateY(-2px)}
+.fb-phone{background:rgba(16,217,138,0.1);color:#6ee7b7;border-color:rgba(16,217,138,0.2)}
+.fb-phone:hover{background:var(--emerald);color:var(--ink);transform:translateY(-2px)}
+.footer-divider{height:1px;background:rgba(255,255,255,0.08);margin-bottom:1.5rem}
+.footer-copy{font-size:0.77rem;color:rgba(255,255,255,0.28)}
+.footer-copy span{color:var(--electric)}
+
+/* ANIMATIONS */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.65s ease,transform 0.65s ease}
+.reveal.show{opacity:1;transform:translateY(0)}
+.reveal-l{opacity:0;transform:translateX(-28px);transition:opacity 0.65s ease,transform 0.65s ease}
+.reveal-l.show{opacity:1;transform:translateX(0)}
+.reveal-r{opacity:0;transform:translateX(28px);transition:opacity 0.65s ease,transform 0.65s ease}
+.reveal-r.show{opacity:1;transform:translateX(0)}
+.reveal-s{opacity:0;transform:scale(0.93);transition:opacity 0.5s ease,transform 0.5s ease}
+.reveal-s.show{opacity:1;transform:scale(1)}
+.td1{transition-delay:.1s}.td2{transition-delay:.2s}.td3{transition-delay:.3s}.td4{transition-delay:.4s}.td5{transition-delay:.5s}.td6{transition-delay:.6s}
+.hero-in{animation:hIn 0.85s cubic-bezier(.4,0,.2,1) forwards;opacity:0}
+@keyframes hIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.h1{animation-delay:.15s}.h2{animation-delay:.3s}.h3{animation-delay:.45s}.h4{animation-delay:.6s}.h5{animation-delay:.75s}.h6{animation-delay:.9s}.h7{animation-delay:1.05s}
+@keyframes blink2{0%,100%{opacity:1}50%{opacity:0}}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-inner,.about-grid,.contact-wrap{grid-template-columns:1fr}
+  .hero-card{max-width:360px;margin:0 auto}
+  .nav-links{display:none}
+  section{padding:4rem 1.5rem}
+  nav{padding:0.9rem 1.5rem}
+  .float-social{display:none}
+}
+@media(max-width:600px){.cf-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-trail"></div>
+
+<!-- ====== FLOATING SOCIAL SIDEBAR ====== -->
+<div class="float-social">
+  <div class="fs-wrap">
+    <a class="fs-btn fs-gh" href="https://github.com/Rajasekar-2005" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      <span class="fs-label">GitHub</span>
+    </a>
+  </div>
+  <div class="fs-wrap">
+    <a class="fs-btn fs-li" href="https://www.linkedin.com/in/rajasekar-d-431281248" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      <span class="fs-label">LinkedIn</span>
+    </a>
+  </div>
+  <div class="fs-wrap">
+    <a class="fs-btn fs-mail" href="mailto:rajasekardesingu1@gmail.com">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <span class="fs-label">Email</span>
+    </a>
+  </div>
+  <div class="fs-wrap">
+    <a class="fs-btn fs-phone" href="tel:+919150327126">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      <span class="fs-label">Call</span>
+    </a>
+  </div>
+</div>
+
+<!-- ====== NAV ====== -->
+<nav>
+  <div class="logo">RD<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hire-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Hire Me ↗</button>
+</nav>
+
+<!-- ====== HERO ====== -->
+<section id="hero">
+  <div class="hero-bg-dots"></div>
+  <div class="hero-bg-shape"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge hero-in h1">
+        <span class="hero-badge-dot"></span>
+        Open to Internships &amp; Full-time Roles
+      </div>
+      <h1 class="hero-name hero-in h2">Rajasekar<br><span class="accent">Desingu</span></h1>
+      <div class="hero-title hero-in h3">&lt; <span id="typed"></span><span style="color:var(--electric);animation:blink2 0.9s infinite">|</span> /&gt;</div>
+      <p class="hero-bio hero-in h4">Self-motivated and hardworking professional with strong communication and problem-solving skills. Able to work well in a team and quickly learn new technologies. Dedicated to completing tasks efficiently and achieving organizational goals.</p>
+      <div class="hero-contact-row hero-in h5">
+        <a class="contact-pill" href="tel:+919150327126">📱 +91 9150327126</a>
+        <a class="contact-pill" href="mailto:rajasekardesingu1@gmail.com">📧 rajasekardesingu1@gmail.com</a>
+        <a class="contact-pill" href="https://github.com/Rajasekar-2005" target="_blank" rel="noopener">⌥ GitHub</a>
+        <a class="contact-pill" href="https://www.linkedin.com/in/rajasekar-d-431281248" target="_blank" rel="noopener">💼 LinkedIn</a>
+        <a class="contact-pill" href="#">📍 Kalpakkam, Tamil Nadu</a>
+      </div>
+      <div class="hero-ctas hero-in h6">
+        <a href="#" class="cta-primary">⬇ Download Resume</a>
+        <a href="#contact" class="cta-secondary">✉ Contact Me</a>
+      </div>
+    </div>
+    <div class="hero-in h7">
+      <div class="hero-card">
+        <div class="hero-avatar">RD<div class="avatar-ring"></div></div>
+        <div class="hero-card-name">Rajasekar Desingu</div>
+        <div class="hero-card-role">// fullstack-developer.exe</div>
+        <div class="hero-stats-grid">
+          <div class="hsg-item"><div class="hsg-num" id="s1">0</div><div class="hsg-lbl">Projects</div></div>
+          <div class="hsg-item"><div class="hsg-num" id="s2">0</div><div class="hsg-lbl">Skills</div></div>
+          <div class="hsg-item"><div class="hsg-num" id="s3">0</div><div class="hsg-lbl">Internship</div></div>
+          <div class="hsg-item"><div class="hsg-num" id="s4">0</div><div class="hsg-lbl">Certs</div></div>
+        </div>
+        <!-- LIVE SOCIAL BUTTONS IN CARD -->
+        <div class="hero-social">
+          <a class="hs-btn hs-gh" href="https://github.com/Rajasekar-2005" target="_blank" rel="noopener">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a class="hs-btn hs-li" href="https://www.linkedin.com/in/rajasekar-d-431281248" target="_blank" rel="noopener">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+          <a class="hs-btn hs-mail" href="mailto:rajasekardesingu1@gmail.com">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Mail
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== ABOUT ====== -->
+<section id="about" class="bg-alt">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">01 — about me</div>
+      <h2 class="sec-title">Who I <em>Am</em></h2>
+      <div class="sec-divider"></div>
+    </div>
+    <div class="about-grid">
+      <div class="reveal-l td1">
+        <div class="about-card">
+          <h4>Professional Summary</h4>
+          <p>I'm <strong>Rajasekar Desingu</strong>, a B.E. Computer Science Engineering student at <strong>Anand Institute of Higher Technology, Kazhipattur, Chennai</strong> (affiliated with Anna University, 2023–2027). I'm a passionate Fullstack Developer who thrives on building robust, scalable web applications with Python/Django on the backend and modern HTML/CSS/JS on the frontend.</p>
+          <p style="margin-top:1rem">My academic journey has equipped me with a solid foundation in programming and software development concepts. I'm eager to apply this knowledge to impactful real-world projects and grow as a professional software engineer.</p>
+          <div style="margin-top:1.5rem">
+            <h4 style="margin-bottom:0.8rem">Core Strengths</h4>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem">
+              <div style="display:flex;gap:0.5rem;align-items:center;font-size:0.84rem;color:var(--text2)"><span style="color:var(--emerald)">✓</span> Problem Solving</div>
+              <div style="display:flex;gap:0.5rem;align-items:center;font-size:0.84rem;color:var(--text2)"><span style="color:var(--emerald)">✓</span> Team Collaboration</div>
+              <div style="display:flex;gap:0.5rem;align-items:center;font-size:0.84rem;color:var(--text2)"><span style="color:var(--emerald)">✓</span> Fast Learner</div>
+              <div style="display:flex;gap:0.5rem;align-items:center;font-size:0.84rem;color:var(--text2)"><span style="color:var(--emerald)">✓</span> Communication</div>
+              <div style="display:flex;gap:0.5rem;align-items:center;font-size:0.84rem;color:var(--text2)"><span style="color:var(--emerald)">✓</span> Adaptability</div>
+              <div style="display:flex;gap:0.5rem;align-items:center;font-size:0.84rem;color:var(--text2)"><span style="color:var(--emerald)">✓</span> Goal-Oriented</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal-r td2">
+        <div class="info-row"><span class="ir-label">📱 Phone</span><span class="ir-val"><a href="tel:+919150327126">+91 9150327126</a></span></div>
+        <div class="info-row"><span class="ir-label">📧 Email</span><span class="ir-val"><a href="mailto:rajasekardesingu1@gmail.com">rajasekardesingu1@gmail.com</a></span></div>
+        <div class="info-row"><span class="ir-label">⌥ GitHub</span><span class="ir-val"><a href="https://github.com/Rajasekar-2005" target="_blank" rel="noopener">Rajasekar-2005</a></span></div>
+        <div class="info-row"><span class="ir-label">💼 LinkedIn</span><span class="ir-val"><a href="https://www.linkedin.com/in/rajasekar-d-431281248" target="_blank" rel="noopener">rajasekar-d-431281248</a></span></div>
+        <div class="info-row"><span class="ir-label">📍 Location</span><span class="ir-val">156 Mettu St, Kalpakkam</span></div>
+        <div class="info-row"><span class="ir-label">🌐 Languages</span><span class="ir-val">Tamil (Native) · English (Intermediate)</span></div>
+        <div class="info-row"><span class="ir-label">💼 Status</span><span class="ir-val" style="color:var(--emerald)">● Available for Hire</span></div>
+        <div class="ref-card">
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.7rem;font-family:'Fira Code',monospace">Reference</div>
+          <div class="ref-name">Mrs. Maheshwari, Ph.D.</div>
+          <div class="ref-role">Head of Department — CSE</div>
+          <div class="ref-phone">+91 93817 45691</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SKILLS ====== -->
+<section id="skills">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">02 — technical skills</div>
+      <h2 class="sec-title">What I <em>Know</em></h2>
+      <div class="sec-divider"></div>
+    </div>
+    <div class="skills-wrap">
+      <div class="skill-block reveal-s td1">
+        <div class="skill-block-head"><div class="skill-icon si-blue">⚡</div><div><div class="skill-block-title">Programming Languages</div><div class="skill-block-sub">Core CS fundamentals</div></div></div>
+        <div class="skill-entry"><div class="se-top"><span class="se-name">Python</span><span class="se-pct">85%</span></div><div class="se-track"><div class="se-fill fill-blue" data-w="85"></div></div></div>
+        <div class="skill-entry"><div class="se-top"><span class="se-name">Java</span><span class="se-pct">75%</span></div><div class="se-track"><div class="se-fill fill-blue" data-w="75"></div></div></div>
+        <div class="skill-entry"><div class="se-top"><span class="se-name">C</span><span class="se-pct">80%</span></div><div class="se-track"><div class="se-fill fill-blue" data-w="80"></div></div></div>
+      </div>
+      <div class="skill-block reveal-s td2">
+        <div class="skill-block-head"><div class="skill-icon si-violet">🌐</div><div><div class="skill-block-title">Web Development</div><div class="skill-block-sub">Frontend &amp; styling</div></div></div>
+        <div class="skill-entry"><div class="se-top"><span class="se-name">HTML</span><span class="se-pct">90%</span></div><div class="se-track"><div class="se-fill fill-violet" data-w="90"></div></div></div>
+        <div class="skill-entry"><div class="se-top"><span class="se-name">CSS</span><span class="se-pct">85%</span></div><div class="se-track"><div class="se-fill fill-violet" data-w="85"></div></div></div>
+        <div class="skill-entry"><div class="se-top"><span class="se-name">JavaScript</span><span class="se-pct">80%</span></div><div class="se-track"><div class="se-fill fill-violet" data-w="80"></div></div></div>
+      </div>
+      <div class="skill-block reveal-s td3">
+        <div class="skill-block-head"><div class="skill-icon si-green">🗄️</div><div><div class="skill-block-title">Databases</div><div class="skill-block-sub">Data management</div></div></div>
+        <div class="skill-entry"><div class="se-top"><span class="se-name">MySQL / SQL</span><span class="se-pct">82%</span></div><div class="se-track"><div class="se-fill fill-green" data-w="82"></div></div></div>
+        <div class="skill-entry"><div class="se-top"><span class="se-name">MongoDB</span><span class="se-pct">78%</span></div><div class="se-track"><div class="se-fill fill-green" data-w="78"></div></div></div>
+        <div class="tag-cloud"><span class="tc">NoSQL</span><span class="tc">CRUD</span><span class="tc">Aggregation</span><span class="tc">Indexing</span></div>
+      </div>
+      <div class="skill-block reveal-s td4">
+        <div class="skill-block-head"><div class="skill-icon si-amber">⚙️</div><div><div class="skill-block-title">Backend — Django</div><div class="skill-block-sub">Server-side & APIs</div></div></div>
+        <div class="skill-entry"><div class="se-top"><span class="se-name">Python / Django</span><span class="se-pct">80%</span></div><div class="se-track"><div class="se-fill fill-amber" data-w="80"></div></div></div>
+        <div class="skill-entry"><div class="se-top"><span class="se-name">REST APIs</span><span class="se-pct">75%</span></div><div class="se-track"><div class="se-fill fill-amber" data-w="75"></div></div></div>
+        <div class="tag-cloud"><span class="tc">ORM</span><span class="tc">MVT</span><span class="tc">Auth</span><span class="tc">Deployment</span></div>
+      </div>
+      <div class="skill-block reveal-s td5">
+        <div class="skill-block-head"><div class="skill-icon si-blue">🛠️</div><div><div class="skill-block-title">Tools & Platforms</div><div class="skill-block-sub">Dev ecosystem</div></div></div>
+        <div class="tag-cloud"><span class="tc">Git</span><span class="tc">GitHub</span><span class="tc">VS Code</span><span class="tc">Postman</span><span class="tc">Linux</span><span class="tc">Vercel</span><span class="tc">Netlify</span><span class="tc">Chrome DevTools</span><span class="tc">Figma</span></div>
+      </div>
+      <div class="skill-block reveal-s td6">
+        <div class="skill-block-head"><div class="skill-icon si-violet">📱</div><div><div class="skill-block-title">Design & Optimization</div><div class="skill-block-sub">UI/UX & performance</div></div></div>
+        <div class="skill-entry"><div class="se-top"><span class="se-name">Responsive Design</span><span class="se-pct">88%</span></div><div class="se-track"><div class="se-fill fill-violet" data-w="88"></div></div></div>
+        <div class="skill-entry"><div class="se-top"><span class="se-name">Frontend Optimization</span><span class="se-pct">78%</span></div><div class="se-track"><div class="se-fill fill-violet" data-w="78"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== EXPERIENCE ====== -->
+<section id="experience" class="bg-ink">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label" style="color:var(--electric)">03 — experience</div>
+      <h2 class="sec-title">Where I've <em>Worked</em></h2>
+      <div class="sec-divider"></div>
+    </div>
+    <div class="exp-timeline">
+      <div class="exp-item reveal td1">
+        <div class="exp-dot"></div>
+        <div class="exp-period">2024 — 2025 · 2 Months</div>
+        <div class="exp-company">Motioncut</div>
+        <div class="exp-role">Web Development Intern</div>
+        <div class="exp-desc">Gained hands-on experience building responsive and user-friendly web interfaces. Worked extensively with HTML, CSS, and JavaScript to create clean, maintainable UI components. Applied responsive design best practices and explored basic frontend performance optimization techniques under professional mentorship.</div>
+        <div class="exp-tags">
+          <span class="exp-tag">HTML</span><span class="exp-tag">CSS</span><span class="exp-tag">JavaScript</span><span class="exp-tag">Responsive Design</span><span class="exp-tag">Frontend Optimization</span>
+        </div>
+      </div>
+    </div>
+    <div class="reveal" style="margin-top:2rem;max-width:560px;padding:1.4rem 1.8rem;background:rgba(0,200,255,0.06);border:1px solid rgba(0,200,255,0.15);border-radius:16px">
+      <div style="font-size:0.72rem;font-family:'Fira Code',monospace;color:var(--electric);letter-spacing:0.1em;margin-bottom:0.4rem">STATUS UPDATE</div>
+      <div style="font-size:0.95rem;color:#f0f4ff;font-weight:600">🟢 Actively seeking internship &amp; full-time roles</div>
+      <div style="font-size:0.82rem;color:rgba(240,244,255,0.5);margin-top:0.3rem">Available for remote, hybrid, or on-site positions</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== EDUCATION ====== -->
+<section id="education" class="bg-alt">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">04 — education</div>
+      <h2 class="sec-title">Academic <em>Journey</em></h2>
+      <div class="sec-divider"></div>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card primary reveal-s td1">
+        <div class="edu-year">2023 — 2027 · Currently Pursuing</div>
+        <div class="edu-degree">B.E. — Computer Science Engineering</div>
+        <div class="edu-institute">Anand Institute of Higher Technology, Kazhipattur, Chennai · Anna University</div>
+        <div class="edu-desc">Building a solid foundation in programming, software development, DSA, DBMS, OS, Computer Networks, ML, and Web Technologies. Eager to apply theoretical knowledge to real-world projects and internships.</div>
+        <span class="edu-badge">⭐ Anna University Affiliated</span>
+      </div>
+      <div class="edu-card secondary reveal-s td2">
+        <div class="edu-year">2020 — 2023</div>
+        <div class="edu-degree">HSC — Higher Secondary Certificate</div>
+        <div class="edu-institute">Government Higher Secondary School, Kalpakkam</div>
+        <div class="edu-desc">Completed HSC gaining a strong academic foundation along with essential problem-solving and communication skills that continue to drive my technical growth.</div>
+      </div>
+      <div class="edu-card secondary reveal-s td3">
+        <div class="edu-year">2019 — 2020</div>
+        <div class="edu-degree">SSLC — Secondary School Leaving Certificate</div>
+        <div class="edu-institute">Government Higher Secondary School, Kalpakkam</div>
+        <div class="edu-desc">Completed SSLC providing a strong academic base and discipline that laid the foundation for a career in computer science and engineering.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CERTIFICATIONS ====== -->
+<section id="certifications">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">05 — certifications</div>
+      <h2 class="sec-title">Licenses &amp; <em>Certs</em></h2>
+      <div class="sec-divider"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem">
+      <div class="cert-card reveal-s td1">
+        <span class="cert-year-badge">2024–2025</span>
+        <div class="cert-icon">🍃</div>
+        <div class="cert-name">Basics of MongoDB</div>
+        <div class="cert-org">MONGODB UNIVERSITY</div>
+        <div class="cert-desc">Completed MongoDB Basics certification — practical knowledge of NoSQL databases, document modeling, CRUD operations, and basic aggregation queries.</div>
+      </div>
+      <div class="cert-card reveal-s td2" style="background:linear-gradient(135deg,#0f1f38,#1e2d45)">
+        <span class="cert-year-badge">2024</span>
+        <div class="cert-icon">💻</div>
+        <div class="cert-name">Web Development Internship</div>
+        <div class="cert-org">MOTIONCUT</div>
+        <div class="cert-desc">Successfully completed 2-month web development internship with hands-on experience in HTML, CSS, JavaScript, responsive design, and frontend optimization.</div>
+      </div>
+      <div class="cert-card reveal-s td3" style="background:linear-gradient(135deg,#1a0a1f,#0f0a2e)">
+        <span class="cert-year-badge">In Progress</span>
+        <div class="cert-icon">🐍</div>
+        <div class="cert-name">Django REST Framework</div>
+        <div class="cert-org">PYTHON / DJANGO</div>
+        <div class="cert-desc">Currently deepening expertise in Django and Django REST Framework to build production-ready backend APIs and fullstack applications.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CONTACT ====== -->
+<section id="contact" class="bg-alt">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">06 — contact</div>
+      <h2 class="sec-title">Let's <em>Connect</em></h2>
+      <div class="sec-divider"></div>
+    </div>
+    <div class="contact-wrap">
+      <div class="reveal-l">
+        <p>I'm actively looking for internships and full-time opportunities. Whether you have a project, a role, or just want to say hello — reach out! I respond within 24 hours.</p>
+        <div class="contact-links">
+          <a class="cl-item" href="tel:+919150327126">
+            <div class="cl-icon" style="background:rgba(16,217,138,0.1)">📱</div>
+            <div><div class="cl-lbl">Phone — Click to Call</div><div class="cl-val">+91 9150327126</div></div>
+          </a>
+          <a class="cl-item" href="mailto:rajasekardesingu1@gmail.com">
+            <div class="cl-icon" style="background:rgba(139,92,246,0.1)">📧</div>
+            <div><div class="cl-lbl">Email — Click to Open Mail</div><div class="cl-val">rajasekardesingu1@gmail.com</div></div>
+          </a>
+          <a class="cl-item" href="https://www.linkedin.com/in/rajasekar-d-431281248" target="_blank" rel="noopener">
+            <div class="cl-icon" style="background:rgba(0,119,181,0.1)">💼</div>
+            <div><div class="cl-lbl">LinkedIn — Click to Open</div><div class="cl-val">rajasekar-d-431281248</div></div>
+          </a>
+          <a class="cl-item" href="https://github.com/Rajasekar-2005" target="_blank" rel="noopener">
+            <div class="cl-icon" style="background:rgba(10,14,26,0.06)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--ink)"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            </div>
+            <div><div class="cl-lbl">GitHub — Click to Open</div><div class="cl-val">github.com/Rajasekar-2005</div></div>
+          </a>
+          <div class="cl-item" style="text-decoration:none">
+            <div class="cl-icon" style="background:rgba(245,158,11,0.08)">📍</div>
+            <div><div class="cl-lbl">Location</div><div class="cl-val">156, Mettu Street, Kalpakkam, TN</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal-r">
+        <div class="contact-form-card">
+          <div class="cf-title">Send a Message</div>
+          <div id="form-ok" style="display:none;text-align:center;padding:2.5rem 0">
+            <div style="font-size:3rem;margin-bottom:1rem">🎉</div>
+            <div style="font-size:1.1rem;font-weight:700;color:var(--emerald);margin-bottom:0.4rem">Message Sent!</div>
+            <div style="font-size:0.85rem;color:var(--text2)">Rajasekar will get back to you within 24 hours.</div>
+          </div>
+          <div id="cf">
+            <div class="cf-row">
+              <div class="cf-group"><label class="cf-lbl">Name</label><input class="cf-input" id="fn" placeholder="Your name" type="text"/></div>
+              <div class="cf-group"><label class="cf-lbl">Email</label><input class="cf-input" id="fe" placeholder="you@company.com" type="email"/></div>
+            </div>
+            <div class="cf-group"><label class="cf-lbl">Company / Role (Optional)</label><input class="cf-input" id="fc" placeholder="e.g. TechCorp — Frontend Engineer" type="text"/></div>
+            <div class="cf-group"><label class="cf-lbl">Message</label><textarea class="cf-input" id="fm" placeholder="Tell me about the role, project, or anything on your mind..."></textarea></div>
+            <button class="cf-submit" onclick="sendMsg()">Send Message →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== FOOTER ====== -->
+<footer>
+  <div class="footer-logo">RD<span>.</span></div>
+  <div class="footer-tagline">// fullstack-developer · kalpakkam, tamil-nadu · india</div>
+  <div class="footer-social">
+    <a class="footer-soc-btn fb-gh" href="https://github.com/Rajasekar-2005" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      GitHub
+    </a>
+    <a class="footer-soc-btn fb-li" href="https://www.linkedin.com/in/rajasekar-d-431281248" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+    <a class="footer-soc-btn fb-mail" href="mailto:rajasekardesingu1@gmail.com">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Email
+    </a>
+    <a class="footer-soc-btn fb-phone" href="tel:+919150327126">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      +91 9150327126
+    </a>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-copy">© 2026 <span>Rajasekar Desingu</span> · Fullstack Developer · Built with ❤️ in Tamil Nadu 🇮🇳</div>
+</footer>
+
+<script>
+// CURSOR
+const cur=document.getElementById('cur'),trail=document.getElementById('cur-trail');
+let mx=0,my=0,tx=0,ty=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=(mx-5)+'px';cur.style.top=(my-5)+'px'});
+(function moveTrail(){tx+=(mx-tx)*0.14;ty+=(my-ty)*0.14;trail.style.left=(tx-15)+'px';trail.style.top=(ty-15)+'px';requestAnimationFrame(moveTrail)})();
+document.querySelectorAll('a,button,.skill-block,.edu-card,.cert-card,.cl-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='scale(2.5)';trail.style.transform='scale(1.8)';trail.style.borderColor='var(--electric)'});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='scale(1)';trail.style.transform='scale(1)';trail.style.borderColor='var(--violet)'});
+});
+
+// TYPED ANIMATION
+const roles=['Fullstack Developer','Python Developer','Django Expert','Web Developer','Problem Solver','CSE Student'];
+let ri=0,ci=0,del=false;const tel=document.getElementById('typed');
+function typeIt(){const w=roles[ri];
+  if(!del){tel.textContent=w.slice(0,ci+1);ci++;if(ci===w.length){del=true;setTimeout(typeIt,2200);return}}
+  else{tel.textContent=w.slice(0,ci-1);ci--;if(ci===0){del=false;ri=(ri+1)%roles.length}}
+  setTimeout(typeIt,del?55:100);
+}typeIt();
+
+// COUNTERS
+function animCnt(el,target,suffix,ms){let n=0,step=target/55;const t=setInterval(()=>{n+=step;if(n>=target){el.textContent=target+suffix;clearInterval(t)}else el.textContent=Math.floor(n)+suffix},ms/55)}
+setTimeout(()=>{
+  animCnt(document.getElementById('s1'),5,'+',1000);
+  animCnt(document.getElementById('s2'),10,'+',1000);
+  animCnt(document.getElementById('s3'),1,'',800);
+  animCnt(document.getElementById('s4'),1,'',800);
+},1200);
+
+// SCROLL REVEAL
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')})},{threshold:0.1});
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r,.reveal-s').forEach(el=>io.observe(el));
+
+// SKILL BARS
+const sio=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){
+  e.target.querySelectorAll('.se-fill').forEach(b=>{setTimeout(()=>b.style.width=b.dataset.w+'%',120)});
+  sio.unobserve(e.target);
+}})},{threshold:0.3});
+document.querySelectorAll('.skill-block').forEach(el=>sio.observe(el));
+
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id==='#')return;e.preventDefault();document.querySelector(id)?.scrollIntoView({behavior:'smooth'})});
+});
+
+// FORM
+function sendMsg(){
+  const n=document.getElementById('fn').value,e=document.getElementById('fe').value,m=document.getElementById('fm').value;
+  if(!n||!e||!m){alert('Please fill in Name, Email and Message.');return}
+  document.getElementById('cf').style.display='none';document.getElementById('form-ok').style.display='block';
+}
+
+// BLINK CSS
+const s=document.createElement('style');s.textContent='@keyframes blink2{0%,100%{opacity:1}50%{opacity:0}}';document.head.appendChild(s);
+</script>
+</body>
+</html>
